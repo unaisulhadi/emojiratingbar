@@ -1,19 +1,23 @@
 # EmojiRatingBar
+[![Kotlin Version](https://img.shields.io/badge/Kotlin-v1.5.10-blue.svg)](https://kotlinlang.org)  [![Platform](https://img.shields.io/badge/Platform-Android-green.svg?style=flat)](https://www.android.com/) [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
+<br/>
 
-A simple Emoji Rating Bar View in Android completely written in Kotlin.
+#### A simple Emoji Rating Bar View in Android completely written in Kotlin.
 
  <img src="https://raw.githubusercontent.com/unaisulhadi/EmojiRatingBar/master/art/Rating.png">
  
-## Installation
+<!-- ## 🛠 Installation
 
 Add this line to your module gradle.
 ```bash
 implementation "com.hadi.emojiratingbar:1.0.0"
 ```
+ -->
+## ⌨️ Usage
 
-## Usage
+- Add this in your layout xml file.
 
-```python
+```xml
 <com.hadi.emojiratingbar.EmojiRatingBar
                 android:id="@+id/emoji_rating_bar"
                 android:layout_width="match_parent"
@@ -21,7 +25,60 @@ implementation "com.hadi.emojiratingbar:1.0.0"
                 android:layout_gravity="center"
                 app:showText="true"/>
 ```
-## License
+- Set ```showText``` value accordingly if you need Emoji Title
+```
+app:showText="true" //XML
+emojiRatingBar.setShowText(true) //Kotlin
+```
+- Get/Set current status of EmojiRatingBar, returns enum 
+[ AWFUL,BAD,OKAY,GOOD,GREAT]
+```kotlin
+emojiRatingBar.getCurrentRateStatus().toString() //GET
+emojiRatingBar.setCurrentRateStatus(RateStatus.GOOD) //SET
+
+```
+- Use OnRateChangeListener for observing Rate Changes
+```kotlin
+emojiRatingBar.setRateChangeListener(object : EmojiRatingBar.OnRateChangeListener {
+            override fun onRateChanged(rateStatus: RateStatus) {
+                //Do you Stuff
+            }
+        })
+```
+- Do your stuff for separate values
+```kotlin
+emojiRatingBar.setRateChangeListener(object : EmojiRatingBar.OnRateChangeListener {
+            override fun onRateChanged(rateStatus: RateStatus) {
+               
+               when (rateStatus) {
+
+                    RateStatus.AWFUL -> {
+                        //Do your code
+                    }
+                    RateStatus.BAD -> {
+                        //Do your code
+                    }
+                    RateStatus.OKAY -> {
+                        //Do your code
+                    }
+                    RateStatus.GOOD -> {
+                        //Do your code
+                    }
+                    RateStatus.GREAT -> {
+                        //Do your code
+                    }
+
+                }
+            }
+})
+ ```
+
+## ✍️ Author
+* <b>Unaisul Hadi</b>
+* Email: unaisulhadi@gmail.com
+
+
+## 📝 License
 
 ```
 MIT License
