@@ -2,6 +2,8 @@
 
 A simple Emoji Rating Bar View in Android completely written in Kotlin.
 
+ <img src="https://raw.githubusercontent.com/unaisulhadi/EmojiRatingBar/master/art/Rating.png">
+ 
 ## Installation
 
 Add this line to your module gradle.
