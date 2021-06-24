@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="poor">POOR</string>
+    <string name="good">GOOD</string>
+    <string name="great">GREAT</string>
+    <string name="okay">OKAY</string>
+    <string name="bad">BAD</string>
+    <string name="awful">AWFUL</string>
+</resources>

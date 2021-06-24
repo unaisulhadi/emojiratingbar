@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="md_grey">#424242</color>
+
+    <!--  Rating Bar Colors  -->
+    <color name="rate_color_awful">#DE4A3D</color>
+    <color name="rate_color_bad">#E2701C</color>
+    <color name="rate_color_okay">#ECB036</color>
+    <color name="rate_color_good_">#77C179</color>
+    <color name="rate_color_great">#5F9868</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+</resources>

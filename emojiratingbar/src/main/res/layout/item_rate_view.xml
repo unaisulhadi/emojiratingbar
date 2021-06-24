@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_70sdp"
+        android:weightSum="5"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+
+        <LinearLayout
+            android:id="@+id/btn_awful"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/iv_awful"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:contentDescription="@string/awful"
+                app:srcCompat="@drawable/ic_awful_inactive" />
+
+
+            <TextView
+                android:id="@+id/tv_awful"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/awful"
+                android:visibility="invisible"
+                android:textColor="@color/rate_color_awful"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/btn_bad"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_bad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:contentDescription="@string/bad"
+                app:srcCompat="@drawable/ic_bad_inactive" />
+
+            <TextView
+                android:id="@+id/tv_bad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bad"
+                android:visibility="invisible"
+                android:textColor="@color/rate_color_bad"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_okay"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_okay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:contentDescription="@string/good"
+                app:srcCompat="@drawable/ic_okay" />
+
+            <TextView
+                android:id="@+id/tv_okay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/okay"
+                android:textColor="@color/rate_color_okay"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_good"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/iv_good"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:contentDescription="@string/good"
+                app:srcCompat="@drawable/ic_good_inactive" />
+
+            <TextView
+                android:id="@+id/tv_good"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/good"
+                android:textColor="@color/rate_color_good_"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_great"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_great"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:contentDescription="@string/great"
+                app:srcCompat="@drawable/ic_great_inactive" />
+
+            <TextView
+                android:id="@+id/tv_great"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/great"
+                android:visibility="invisible"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                android:textColor="@color/rate_color_great"
+                android:gravity="center"/>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</merge>

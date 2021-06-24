@@ -1,0 +1,3 @@
+rootProject.name = "EmojiRatingBar"
+include ':emojiratingbar'
+include ':sample'
