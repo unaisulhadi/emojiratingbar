@@ -6,13 +6,23 @@
 
  <img src="https://raw.githubusercontent.com/unaisulhadi/EmojiRatingBar/master/art/Rating.png">
  
-<!-- ## 🛠 Installation
+## 🛠 Installation
+
+Add the JitPack repository to your build file
+```bash
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
 
 Add this line to your module gradle.
 ```bash
-implementation "com.hadi.emojiratingbar:1.0.0"
+implementation 'com.github.unaisulhadi:emojiratingbar:1.0.0'
 ```
- -->
+
 ## ⌨️ Usage
 
 - Add this in your layout xml file.
