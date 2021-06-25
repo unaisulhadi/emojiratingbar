@@ -2,7 +2,7 @@
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-v1.5.10-blue.svg)](https://kotlinlang.org)  [![Platform](https://img.shields.io/badge/Platform-Android-green.svg?style=flat)](https://www.android.com/) [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
 <br/>
 
-#### A simple Emoji Rating Bar View in Android completely written in Kotlin.
+#### A simple Emoji Rating Bar library for Android completely written in Kotlin.
 
  <img src="https://raw.githubusercontent.com/unaisulhadi/EmojiRatingBar/master/art/Rating.png">
  
