@@ -43,6 +43,32 @@ emojiRatingBar.setShowText(true) //Kotlin
 ```
 - Get/Set current status of EmojiRatingBar, returns enum 
 [ AWFUL,BAD,OKAY,GOOD,GREAT]
+
+
+### Parameters
+
+| Explanation               | Parameter Name          | Type       | Default Value            |
+| ------------------------- | ----------------------- | ---------- | --------------           |
+| Set Title Color           | **titleColor**          | color      | Same as the Emoji Color  |
+| Set Show Title status     | **showText**            | boolean    | true                     |
+| Set Default Rate          | **defaultValue**        | enum       | OKAY                     |
+| Set FontFamily            | **android:fontFamily**  | font       | Android Default          | 
+
+### Use Programmatically
+
+| Explanation                 | Code                        | Parameter            | Return type    |
+| --------------------------- | --------------------------- | -------------------- | -------------- |
+| Set Title Color             | setTitleColor(color)        | color reference      |                |
+| Set Show Title status       | setShowText(true)           | boolean              |                |
+| Get Show Title Status       | getShowText()               |                      | boolean        |
+| Set Current Rate            | setCurrentRateStatus(rate)  | enum                 |                |
+| Get Current Rate            | getCurrentRateStatus()      |                      | rate           |
+| Set Title Font (from res)   | setTypeFace(font)           | font reference       |                |
+| Set Title Font (from Asset) | setTypeFaceFromAssets(font) | path to asset        |                |
+
+
+### Refer code below
+
 ```kotlin
 emojiRatingBar.getCurrentRateStatus().toString() //GET
 emojiRatingBar.setCurrentRateStatus(RateStatus.GOOD) //SET
