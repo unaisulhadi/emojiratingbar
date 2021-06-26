@@ -1,5 +1,6 @@
 package com.hadi.sample
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -14,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvSelectedRate: TextView
     private lateinit var btnGetCurrentRate: Button
     private lateinit var btnEnableTitle: Button
+    private lateinit var btnSetFontFromResource: Button
+    private lateinit var btnSetFontFromAssets: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,18 +28,21 @@ class MainActivity : AppCompatActivity() {
         tvSelectedRate = findViewById(R.id.tv_rate_status)
         btnGetCurrentRate = findViewById(R.id.btn_get_rating)
         btnEnableTitle = findViewById(R.id.btn_enable_title)
+        btnSetFontFromResource = findViewById(R.id.btn_set_font_from_res)
+        btnSetFontFromAssets = findViewById(R.id.btn_set_font_from_asset)
 
 
         tvSelectedRate.text = emojiRatingBar.getCurrentRateStatus().toString()
         btnGetCurrentRate.setOnClickListener {
-            Toast.makeText(this, "${emojiRatingBar.getCurrentRateStatus()}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "${emojiRatingBar.getCurrentRateStatus()}", Toast.LENGTH_SHORT)
+                .show()
         }
 
         btnEnableTitle.setOnClickListener {
-            if(emojiRatingBar.getShowText()) {
+            if (emojiRatingBar.getShowText()) {
                 emojiRatingBar.setShowText(false)
                 btnEnableTitle.text = "ENABLE EMOJI TITLE"
-            }else{
+            } else {
                 emojiRatingBar.setShowText(true)
                 btnEnableTitle.text = "DISABLE EMOJI TITLE"
             }
@@ -44,10 +50,38 @@ class MainActivity : AppCompatActivity() {
 
         emojiRatingBar.setRateChangeListener(object : EmojiRatingBar.OnRateChangeListener {
             override fun onRateChanged(rateStatus: RateStatus) {
-                tvSelectedRate.text = emojiRatingBar.getCurrentRateStatus().toString()
-                Toast.makeText(this@MainActivity, "${rateStatus}", Toast.LENGTH_SHORT).show()
+                when (rateStatus) {
+
+                    RateStatus.AWFUL -> {
+                        //Do your code
+                    }
+                    RateStatus.BAD -> {
+                        //Do your code
+                    }
+                    RateStatus.OKAY -> {
+                        //Do your code
+                    }
+                    RateStatus.GOOD -> {
+                        //Do your code
+                    }
+                    RateStatus.GREAT -> {
+                        //Do your code
+                    }
+
+                }
             }
         })
 
+        //Set font from Resources
+        btnSetFontFromResource.setOnClickListener {
+            emojiRatingBar.setTypeFace(R.font.playfair_display_semibold)
+        }
+
+
+        //Set font from Assets
+        btnSetFontFromAssets.setOnClickListener {
+            emojiRatingBar.setTypeFaceFromAssets("fonts/kaushanscript_regular.ttf")
+        }
     }
+
 }

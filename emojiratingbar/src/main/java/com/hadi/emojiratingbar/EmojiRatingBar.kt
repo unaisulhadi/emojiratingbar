@@ -1,12 +1,16 @@
 package com.hadi.emojiratingbar
 
+import android.animation.*
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.FontRes
+import androidx.core.content.res.ResourcesCompat
 
 class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
     LinearLayout(context, attributeSet) {
@@ -44,12 +48,11 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         context.theme.obtainStyledAttributes(
             attributeSet,
             R.styleable.EmojiRatingBar,
-            0, 0).apply {
+            0, 0
+        ).apply {
 
             try {
                 showText = getBoolean(R.styleable.EmojiRatingBar_showText, true)
-
-
 
             } finally {
                 recycle()
@@ -63,10 +66,11 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         binding()
         handleRatingClick()
 
-        if(!showText){
+        if (!showText) {
             hideAllTitles()
         }
     }
+
 
     private fun binding() {
         btnAwful = _view.findViewById(R.id.btn_awful)
@@ -90,23 +94,28 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
 
     private fun handleRatingClick() {
         btnAwful.setOnClickListener {
+            scaleEmoji(ivAwful, btnAwful)
             setAwfulRateStatus()
         }
 
         btnBad.setOnClickListener {
+            scaleEmoji(ivBad, btnBad)
             setBadRateStatus()
         }
 
         btnOkay.setOnClickListener {
+            scaleEmoji(ivOkay, btnOkay)
             setOkayRateStatus()
         }
 
 
         btnGood.setOnClickListener {
+            scaleEmoji(ivGood, btnGood)
             setGoodRateStatus()
         }
 
         btnGreat.setOnClickListener {
+            scaleEmoji(ivGreat, btnGreat)
             setGreatRateStatus()
         }
     }
@@ -130,12 +139,12 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         }
     }
 
-    fun setShowText(showText : Boolean){
+    fun setShowText(showText: Boolean) {
         this.showText = showText
         setCurrentRateStatus(getCurrentRateStatus())
     }
 
-    fun getShowText() : Boolean{
+    fun getShowText(): Boolean {
         return showText
     }
 
@@ -152,7 +161,7 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
             tvOkay.visibility = View.INVISIBLE
             tvGood.visibility = View.INVISIBLE
             tvGreat.visibility = View.INVISIBLE
-        }else{
+        } else {
             hideAllTitles()
         }
 
@@ -176,7 +185,7 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
             tvOkay.visibility = View.INVISIBLE
             tvGood.visibility = View.INVISIBLE
             tvGreat.visibility = View.INVISIBLE
-        }else{
+        } else {
             hideAllTitles()
         }
 
@@ -200,7 +209,7 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
             tvBad.visibility = View.INVISIBLE
             tvGood.visibility = View.INVISIBLE
             tvGreat.visibility = View.INVISIBLE
-        }else{
+        } else {
             hideAllTitles()
         }
 
@@ -224,7 +233,7 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
             tvBad.visibility = View.INVISIBLE
             tvOkay.visibility = View.INVISIBLE
             tvGreat.visibility = View.INVISIBLE
-        }else{
+        } else {
             hideAllTitles()
         }
 
@@ -249,7 +258,7 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
             tvBad.visibility = View.INVISIBLE
             tvOkay.visibility = View.INVISIBLE
             tvGood.visibility = View.INVISIBLE
-        }else{
+        } else {
             hideAllTitles()
         }
 
@@ -262,7 +271,23 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
 
     }
 
-    private fun hideAllTitles(){
+    fun setTypeFace(@FontRes font: Int) {
+        tvAwful.typeface = ResourcesCompat.getFont(context, font)
+        tvBad.typeface = ResourcesCompat.getFont(context, font)
+        tvOkay.typeface = ResourcesCompat.getFont(context, font)
+        tvGood.typeface = ResourcesCompat.getFont(context, font)
+        tvGreat.typeface = ResourcesCompat.getFont(context, font)
+    }
+
+    fun setTypeFaceFromAssets(fontPath: String) {
+        tvAwful.typeface = Typeface.createFromAsset(context.assets,fontPath)
+        tvBad.typeface = Typeface.createFromAsset(context.assets,fontPath)
+        tvOkay.typeface = Typeface.createFromAsset(context.assets,fontPath)
+        tvGood.typeface = Typeface.createFromAsset(context.assets,fontPath)
+        tvGreat.typeface = Typeface.createFromAsset(context.assets,fontPath)
+    }
+
+    private fun hideAllTitles() {
         tvAwful.visibility = View.GONE
         tvBad.visibility = View.GONE
         tvOkay.visibility = View.GONE
@@ -270,6 +295,31 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         tvGreat.visibility = View.GONE
     }
 
+    private fun scaleEmoji(targetView: View, disableView: View) {
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.2f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.2f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(targetView, scaleX, scaleY)
+        animator.repeatCount = 1
+        animator.duration = 200
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation(disableView)
+        animator.start()
+    }
+
+    private fun ValueAnimator.disableViewDuringAnimation(view: View) {
+        // This extension method listens for start/end events on an animation and disables
+        // the given view for the entirety of that animation.
+
+        addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                view.isEnabled = false
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                view.isEnabled = true
+            }
+        })
+    }
 
     interface OnRateChangeListener {
         fun onRateChanged(rateStatus: RateStatus)
