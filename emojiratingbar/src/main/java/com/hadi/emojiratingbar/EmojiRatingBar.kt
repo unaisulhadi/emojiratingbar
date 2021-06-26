@@ -45,7 +45,7 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
     private lateinit var tvGreat: TextView
 
     private var showText: Boolean = true
-    private var color: Int  ?= null
+    private var color: Int  = 0
     private var fontFamilyId = 0
 
     init {
@@ -76,8 +76,8 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
 
         binding()
         handleRatingClick()
-        color?.let {
-            setInitialColor(it)
+        if(color > 0){
+            setInitialColor(color)
         }
         if(fontFamilyId > 0){
             setTypeFace(fontFamilyId)
