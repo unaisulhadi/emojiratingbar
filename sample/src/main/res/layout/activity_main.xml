@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -37,6 +37,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 app:showText="true"
+                app:titleColor="#844848"
+                app:defaultValue="AWFUL"
+                android:fontFamily="@font/playfair_display_semibold"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginHorizontal="24dp"/>
@@ -51,19 +54,13 @@
                 android:layout_marginBottom="12dp"
                 android:layout_gravity="end"/>
 
+
+
         </LinearLayout>
 
 
 
     </androidx.cardview.widget.CardView>
-
-
-    <TextView
-        android:id="@+id/tv_rate_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        />
 
 
 
@@ -88,5 +85,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Set custom font from Resources"/>
+
+    <Button
+        android:id="@+id/btn_change_title_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="CHANGE COLOR"/>
 
 </LinearLayout>

@@ -1,17 +1,22 @@
 package com.hadi.emojiratingbar
 
 import android.animation.*
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.ColorRes
 import androidx.annotation.FontRes
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 
+@SuppressLint("ResourceType")
 class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
     LinearLayout(context, attributeSet) {
 
@@ -40,7 +45,8 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
     private lateinit var tvGreat: TextView
 
     private var showText: Boolean = true
-
+    private var color: Int  ?= null
+    private var fontFamilyId = 0
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -53,7 +59,10 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
 
             try {
                 showText = getBoolean(R.styleable.EmojiRatingBar_showText, true)
+                color = getColor(R.styleable.EmojiRatingBar_titleColor, 0)
 
+                rating = RateStatus.values()[getInt(R.styleable.EmojiRatingBar_defaultValue,2)]
+                fontFamilyId = getResourceId(R.styleable.EmojiRatingBar_android_fontFamily,0)
             } finally {
                 recycle()
             }
@@ -61,11 +70,19 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         initType()
     }
 
+
+
     private fun initType() {
 
         binding()
         handleRatingClick()
-
+        color?.let {
+            setInitialColor(it)
+        }
+        if(fontFamilyId > 0){
+            setTypeFace(fontFamilyId)
+        }
+        setCurrentRateStatus(rating)
         if (!showText) {
             hideAllTitles()
         }
@@ -240,7 +257,7 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
 
         ivAwful.setImageResource(R.drawable.ic_awful_inactive)
         ivBad.setImageResource(R.drawable.ic_bad_inactive)
-        ivOkay.setImageResource(R.drawable.ic_good_inactive)
+        ivOkay.setImageResource(R.drawable.ic_okay_inactive)
         ivGreat.setImageResource(R.drawable.ic_great_inactive)
 
 
@@ -280,11 +297,27 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
     }
 
     fun setTypeFaceFromAssets(fontPath: String) {
-        tvAwful.typeface = Typeface.createFromAsset(context.assets,fontPath)
-        tvBad.typeface = Typeface.createFromAsset(context.assets,fontPath)
-        tvOkay.typeface = Typeface.createFromAsset(context.assets,fontPath)
-        tvGood.typeface = Typeface.createFromAsset(context.assets,fontPath)
-        tvGreat.typeface = Typeface.createFromAsset(context.assets,fontPath)
+        tvAwful.typeface = Typeface.createFromAsset(context.assets, fontPath)
+        tvBad.typeface = Typeface.createFromAsset(context.assets, fontPath)
+        tvOkay.typeface = Typeface.createFromAsset(context.assets, fontPath)
+        tvGood.typeface = Typeface.createFromAsset(context.assets, fontPath)
+        tvGreat.typeface = Typeface.createFromAsset(context.assets, fontPath)
+    }
+
+    fun setTitleColor(color: Int) {
+        tvAwful.setTextColor(ContextCompat.getColor(context,color))
+        tvBad.setTextColor(ContextCompat.getColor(context,color))
+        tvOkay.setTextColor(ContextCompat.getColor(context,color))
+        tvGood.setTextColor(ContextCompat.getColor(context,color))
+        tvGreat.setTextColor(ContextCompat.getColor(context,color))
+    }
+
+    private fun setInitialColor(color: Int) {
+        tvAwful.setTextColor(color)
+        tvBad.setTextColor(color)
+        tvOkay.setTextColor(color)
+        tvGood.setTextColor(color)
+        tvGreat.setTextColor(color)
     }
 
     private fun hideAllTitles() {

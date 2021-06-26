@@ -11,4 +11,6 @@
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="some_random_color">#FF00FF</color>
 </resources>

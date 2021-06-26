@@ -6,17 +6,18 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.hadi.emojiratingbar.EmojiRatingBar
 import com.hadi.emojiratingbar.RateStatus
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var emojiRatingBar: EmojiRatingBar
-    private lateinit var tvSelectedRate: TextView
     private lateinit var btnGetCurrentRate: Button
     private lateinit var btnEnableTitle: Button
     private lateinit var btnSetFontFromResource: Button
     private lateinit var btnSetFontFromAssets: Button
+    private lateinit var btnChangeTitleColor: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,14 +26,12 @@ class MainActivity : AppCompatActivity() {
 
 
         emojiRatingBar = findViewById(R.id.emoji_rating_bar)
-        tvSelectedRate = findViewById(R.id.tv_rate_status)
         btnGetCurrentRate = findViewById(R.id.btn_get_rating)
         btnEnableTitle = findViewById(R.id.btn_enable_title)
         btnSetFontFromResource = findViewById(R.id.btn_set_font_from_res)
         btnSetFontFromAssets = findViewById(R.id.btn_set_font_from_asset)
+        btnChangeTitleColor = findViewById(R.id.btn_change_title_color)
 
-
-        tvSelectedRate.text = emojiRatingBar.getCurrentRateStatus().toString()
         btnGetCurrentRate.setOnClickListener {
             Toast.makeText(this, "${emojiRatingBar.getCurrentRateStatus()}", Toast.LENGTH_SHORT)
                 .show()
@@ -81,6 +80,11 @@ class MainActivity : AppCompatActivity() {
         //Set font from Assets
         btnSetFontFromAssets.setOnClickListener {
             emojiRatingBar.setTypeFaceFromAssets("fonts/kaushanscript_regular.ttf")
+        }
+
+        //Change Color
+        btnChangeTitleColor.setOnClickListener {
+            emojiRatingBar.setTitleColor(R.color.black)
         }
     }
 

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="EmojiRatingBar">
-        <attr name="showText" format="boolean"/>
+        <attr name="showText" format="boolean" />
+        <attr name="titleColor" format="color" />
+        <attr name="android:fontFamily"/>
+        <attr name="defaultValue" format="enum">
+            <enum name="AWFUL" value="0" />
+            <enum name="BAD" value="1" />
+            <enum name="OKAY" value="2" />
+            <enum name="GOOD" value="3" />
+            <enum name="GREAT" value="4" />
+        </attr>
     </declare-styleable>
 </resources>
