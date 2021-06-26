@@ -34,16 +34,20 @@ implementation 'com.github.unaisulhadi:emojiratingbar:1.0.0'
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:showText="true"/>
+                app:showText="true"
+                app:titleColor="#844848"
+                app:defaultValue="AWFUL"
+                android:fontFamily="@font/playfair_display_semibold" />
 ```
-- Set ```showText``` value accordingly if you need Emoji Title
-```
-app:showText="true" //XML
-emojiRatingBar.setShowText(true) //Kotlin
-```
-- Get/Set current status of EmojiRatingBar, returns enum 
-[ AWFUL,BAD,OKAY,GOOD,GREAT]
 
+- 5 EmojiRatingBar Rate Values
+```kotlin
+ 0. RateStatus.AWFUL
+ 1. RateStatus.BAD
+ 2. RateStatus.OKAY
+ 3. RateStatus.GOOD
+ 4. RateStatus.GREAT
+```
 
 ### Parameters
 
@@ -69,8 +73,13 @@ emojiRatingBar.setShowText(true) //Kotlin
 
 ### Refer code below
 
+- Get current Rate Status of EmojiRatingBar.
 ```kotlin
-emojiRatingBar.getCurrentRateStatus().toString() //GET
+emojiRatingBar.getCurrentRateStatus().toString()
+```
+
+- Set Rate Status programmatically.
+```
 emojiRatingBar.setCurrentRateStatus(RateStatus.GOOD) //SET
 
 ```
@@ -109,6 +118,10 @@ emojiRatingBar.setRateChangeListener(object : EmojiRatingBar.OnRateChangeListene
             }
 })
  ```
+ 
+ ## 🍰  Contribute  
+
+Feel free to fork this project, to optimise the code or to add new features. 
 
 ## ✍️ Author
 * <b>Unaisul Hadi</b>
