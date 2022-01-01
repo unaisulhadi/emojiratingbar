@@ -22,7 +22,7 @@ allprojects {
 
 Add this line to your ```build.gradle``` (module)
 ```bash
-implementation 'com.github.unaisulhadi:emojiratingbar:1.0.1'
+implementation 'com.github.unaisulhadi:emojiratingbar:1.0.2'
 ```
 
 ## ⌨️ Usage
@@ -119,6 +119,16 @@ emojiRatingBar.setRateChangeListener(object : EmojiRatingBar.OnRateChangeListene
             }
 })
  ```
+ 
+ - You can use your own emoji titles
+ ```kotlin
+ emojiRatingBar.setAwfulEmojiTitle("Awful!")
+ emojiRatingBar.setBadEmojiTitle("Bad!")
+ emojiRatingBar.setOkayEmojiTitle("Okay!")
+ emojiRatingBar.setGoodEmojiTitle("Good!")
+ emojiRatingBar.setGreatEmojiTitle("Great!")
+ ```
+ 
  
  ## 🍰  Contribute  
 
