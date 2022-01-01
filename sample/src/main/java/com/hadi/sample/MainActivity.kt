@@ -47,6 +47,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        /*
+        emojiRatingBar.setAwfulEmojiTitle("Awful!")
+        emojiRatingBar.setBadEmojiTitle("Bad!")
+        emojiRatingBar.setOkayEmojiTitle("Okay!")
+        emojiRatingBar.setGoodEmojiTitle("Good!")
+        emojiRatingBar.setGreatEmojiTitle("Great!")
+        */
+
         emojiRatingBar.setRateChangeListener(object : EmojiRatingBar.OnRateChangeListener {
             override fun onRateChanged(rateStatus: RateStatus) {
                 when (rateStatus) {
@@ -84,8 +92,18 @@ class MainActivity : AppCompatActivity() {
 
         //Change Color
         btnChangeTitleColor.setOnClickListener {
-            emojiRatingBar.setTitleColor(R.color.black)
+            emojiRatingBar.setTitleColor(getRandomColor())
         }
+    }
+
+    fun getRandomColor(): Int {
+        val colors = listOf(
+            R.color.black,
+            R.color.purple_200,
+            R.color.teal_700,
+            R.color.purple_700,
+        )
+        return colors.random()
     }
 
 }

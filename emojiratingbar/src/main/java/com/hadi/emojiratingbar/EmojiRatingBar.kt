@@ -137,6 +137,27 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         }
     }
 
+    fun setAwfulEmojiTitle(title:String){
+        tvAwful.text = title
+    }
+
+    fun setBadEmojiTitle(title:String){
+        tvBad.text = title
+    }
+
+    fun setOkayEmojiTitle(title:String){
+        tvOkay.text = title
+    }
+
+    fun setGoodEmojiTitle(title:String){
+        tvGood.text = title
+    }
+
+    fun setGreatEmojiTitle(title:String){
+        tvGreat.text = title
+    }
+
+
     fun setRateChangeListener(listener: OnRateChangeListener) {
         ratingChangeListener = listener
     }
