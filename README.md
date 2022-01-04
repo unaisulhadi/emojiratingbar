@@ -2,6 +2,7 @@
 
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-v1.5.10-blue.svg)](https://kotlinlang.org)  [![Platform](https://img.shields.io/badge/Platform-Android-green.svg?style=flat)](https://www.android.com/) [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
 [![](https://jitpack.io/v/unaisulhadi/emojiratingbar.svg)](https://jitpack.io/#unaisulhadi/emojiratingbar)
+[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-Emoji%20Rating%20Bar-green.svg?style=flat )]( https://android-arsenal.com/details/1/8293 )
 <br/>
 
 #### A simple Emoji Rating Bar library for Android completely written in Kotlin.
