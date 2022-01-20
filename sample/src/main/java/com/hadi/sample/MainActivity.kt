@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnSetFontFromResource: Button
     private lateinit var btnSetFontFromAssets: Button
     private lateinit var btnChangeTitleColor: Button
+    private lateinit var btnShowAllTitle: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         emojiRatingBar = findViewById(R.id.emoji_rating_bar)
         btnGetCurrentRate = findViewById(R.id.btn_get_rating)
         btnEnableTitle = findViewById(R.id.btn_enable_title)
+        btnShowAllTitle = findViewById(R.id.btn_show_all_title)
         btnSetFontFromResource = findViewById(R.id.btn_set_font_from_res)
         btnSetFontFromAssets = findViewById(R.id.btn_set_font_from_asset)
         btnChangeTitleColor = findViewById(R.id.btn_change_title_color)
@@ -44,6 +46,16 @@ class MainActivity : AppCompatActivity() {
             } else {
                 emojiRatingBar.setShowText(true)
                 btnEnableTitle.text = "DISABLE EMOJI TITLE"
+            }
+        }
+
+        btnShowAllTitle.setOnClickListener{
+            if (emojiRatingBar.getShowAllText()) {
+                emojiRatingBar.setShowAllText(false)
+                btnShowAllTitle.text = "SHOW ALL EMOJI TITLE"
+            } else {
+                emojiRatingBar.setShowAllText(true)
+                btnShowAllTitle.text = "HIDE ALL EMOJI TITLE"
             }
         }
 

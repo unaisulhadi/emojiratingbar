@@ -92,13 +92,14 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
                 android:contentDescription="@string/good"
-                app:srcCompat="@drawable/ic_okay" />
+                app:srcCompat="@drawable/ic_okay_inactive" />
 
             <TextView
                 android:id="@+id/tv_okay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/okay"
+                android:visibility="invisible"
                 android:textColor="@color/rate_color_okay"
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold"

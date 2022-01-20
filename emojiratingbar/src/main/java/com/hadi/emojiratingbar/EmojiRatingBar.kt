@@ -20,7 +20,9 @@ import androidx.core.content.res.ResourcesCompat
 class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
     LinearLayout(context, attributeSet) {
 
-    private var rating: RateStatus = RateStatus.OKAY
+    private class Smiley(var image: ImageView, var text: TextView, var status: RateStatus)
+
+    private var rating: RateStatus = RateStatus.EMPTY
     private var ratingChangeListener: OnRateChangeListener? = null
 
 
@@ -44,9 +46,15 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
     private lateinit var tvGood: TextView
     private lateinit var tvGreat: TextView
 
+
     private var showText: Boolean = true
+    private var showAllText: Boolean = false;
     private var color: Int  = 0
     private var fontFamilyId = 0
+
+    private lateinit var smileyList: List<Smiley>
+
+
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -60,8 +68,8 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
             try {
                 showText = getBoolean(R.styleable.EmojiRatingBar_showText, true)
                 color = getColor(R.styleable.EmojiRatingBar_titleColor, 0)
-
-                rating = RateStatus.values()[getInt(R.styleable.EmojiRatingBar_defaultValue,2)]
+                showAllText = getBoolean(R.styleable.EmojiRatingBar_showAllText, false)
+                rating = RateStatus.values()[getInt(R.styleable.EmojiRatingBar_defaultValue,0)]
                 fontFamilyId = getResourceId(R.styleable.EmojiRatingBar_android_fontFamily,0)
             } finally {
                 recycle()
@@ -70,10 +78,7 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         initType()
     }
 
-
-
     private fun initType() {
-
         binding()
         handleRatingClick()
         if(color > 0){
@@ -83,8 +88,11 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
             setTypeFace(fontFamilyId)
         }
         setCurrentRateStatus(rating)
-        if (!showText) {
-            hideAllTitles()
+        if(showAllText){
+            hideAllTitles(false)
+        }
+        else if (!showText) {
+            hideAllTitles(true)
         }
     }
 
@@ -107,54 +115,44 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         tvOkay = findViewById(R.id.tv_okay)
         tvGood = findViewById(R.id.tv_good)
         tvGreat = findViewById(R.id.tv_great)
+
+        smileyList = listOf(
+            Smiley(ivAwful, tvAwful, RateStatus.AWFUL),
+            Smiley(ivBad, tvBad, RateStatus.BAD),
+            Smiley(ivOkay, tvOkay, RateStatus.OKAY),
+            Smiley(ivGood, tvGood, RateStatus.GOOD),
+            Smiley(ivGreat, tvGreat, RateStatus.GREAT)
+        )
     }
 
     private fun handleRatingClick() {
         btnAwful.setOnClickListener {
             scaleEmoji(ivAwful, btnAwful)
-            setAwfulRateStatus()
+            setCurrentRateStatus(RateStatus.AWFUL)
         }
+
 
         btnBad.setOnClickListener {
             scaleEmoji(ivBad, btnBad)
-            setBadRateStatus()
+            setCurrentRateStatus(RateStatus.BAD)
         }
+
 
         btnOkay.setOnClickListener {
             scaleEmoji(ivOkay, btnOkay)
-            setOkayRateStatus()
+            setCurrentRateStatus(RateStatus.OKAY)
         }
 
 
         btnGood.setOnClickListener {
             scaleEmoji(ivGood, btnGood)
-            setGoodRateStatus()
+            setCurrentRateStatus(RateStatus.GOOD)
         }
 
         btnGreat.setOnClickListener {
             scaleEmoji(ivGreat, btnGreat)
-            setGreatRateStatus()
+            setCurrentRateStatus(RateStatus.GREAT)
         }
-    }
-
-    fun setAwfulEmojiTitle(title:String){
-        tvAwful.text = title
-    }
-
-    fun setBadEmojiTitle(title:String){
-        tvBad.text = title
-    }
-
-    fun setOkayEmojiTitle(title:String){
-        tvOkay.text = title
-    }
-
-    fun setGoodEmojiTitle(title:String){
-        tvGood.text = title
-    }
-
-    fun setGreatEmojiTitle(title:String){
-        tvGreat.text = title
     }
 
 
@@ -166,147 +164,58 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         return rating
     }
 
-    fun setCurrentRateStatus(rateStatus: RateStatus) {
-        when (rateStatus) {
-
-            RateStatus.AWFUL -> setAwfulRateStatus()
-            RateStatus.BAD -> setBadRateStatus()
-            RateStatus.OKAY -> setOkayRateStatus()
-            RateStatus.GOOD -> setGoodRateStatus()
-            RateStatus.GREAT -> setGreatRateStatus()
+    fun setShowText(showText: Boolean) {
+        this.showText = showText
+        for (smiley in smileyList){
+            if(smiley.status == rating) smiley.text.visibility = if(showText) View.VISIBLE else View.INVISIBLE
+            else smiley.text.visibility = View.INVISIBLE
         }
     }
 
-    fun setShowText(showText: Boolean) {
-        this.showText = showText
-        setCurrentRateStatus(getCurrentRateStatus())
+    fun setShowAllText (showAllText: Boolean){
+        this.showAllText = showAllText
+        val visible = if(showAllText) View.VISIBLE else View.INVISIBLE
+        for (smiley in smileyList){
+            smiley.text.visibility = visible
+        }
     }
 
     fun getShowText(): Boolean {
         return showText
     }
 
-    private fun setAwfulRateStatus() {
-        rating = RateStatus.AWFUL
-        ratingChangeListener?.onRateChanged(rating)
-
-
-        ivAwful.setImageResource(R.drawable.ic_awful)
-
-        if (showText) {
-            tvAwful.visibility = View.VISIBLE
-            tvBad.visibility = View.INVISIBLE
-            tvOkay.visibility = View.INVISIBLE
-            tvGood.visibility = View.INVISIBLE
-            tvGreat.visibility = View.INVISIBLE
-        } else {
-            hideAllTitles()
-        }
-
-
-        ivBad.setImageResource(R.drawable.ic_bad_inactive)
-        ivOkay.setImageResource(R.drawable.ic_okay_inactive)
-        ivGood.setImageResource(R.drawable.ic_good_inactive)
-        ivGreat.setImageResource(R.drawable.ic_great_inactive)
-
-
+    fun getShowAllText(): Boolean {
+        return showAllText
     }
 
-    private fun setBadRateStatus() {
-        rating = RateStatus.BAD
+    private fun setCurrentRateStatus(rateStatus: RateStatus){
+        rating = rateStatus
         ratingChangeListener?.onRateChanged(rating)
 
-        ivBad.setImageResource(R.drawable.ic_bad)
-        if (showText) {
-            tvBad.visibility = View.VISIBLE
-            tvAwful.visibility = View.INVISIBLE
-            tvOkay.visibility = View.INVISIBLE
-            tvGood.visibility = View.INVISIBLE
-            tvGreat.visibility = View.INVISIBLE
-        } else {
-            hideAllTitles()
+        for (smiley in smileyList){
+            smiley.text.visibility = View.INVISIBLE
+            if(smiley.status == rateStatus) {
+                getRatingImageResource(smiley.status, true)?.let { smiley.image.setImageResource(it) }
+                if(showText) smiley.text.visibility = View.VISIBLE
+            }
+            else {
+                getRatingImageResource(smiley.status, false)?.let { smiley.image.setImageResource(it) }
+            }
+
+            if(showAllText){
+                smiley.text.visibility = View.VISIBLE
+            }
         }
-
-
-        ivAwful.setImageResource(R.drawable.ic_awful_inactive)
-        ivOkay.setImageResource(R.drawable.ic_okay_inactive)
-        ivGood.setImageResource(R.drawable.ic_good_inactive)
-        ivGreat.setImageResource(R.drawable.ic_great_inactive)
-
-
     }
 
-    private fun setOkayRateStatus() {
-        rating = RateStatus.OKAY
-        ratingChangeListener?.onRateChanged(rating)
 
-        ivOkay.setImageResource(R.drawable.ic_okay)
-        if (showText) {
-            tvOkay.visibility = View.VISIBLE
-            tvAwful.visibility = View.INVISIBLE
-            tvBad.visibility = View.INVISIBLE
-            tvGood.visibility = View.INVISIBLE
-            tvGreat.visibility = View.INVISIBLE
-        } else {
-            hideAllTitles()
-        }
-
-
-        ivAwful.setImageResource(R.drawable.ic_awful_inactive)
-        ivBad.setImageResource(R.drawable.ic_bad_inactive)
-        ivGood.setImageResource(R.drawable.ic_good_inactive)
-        ivGreat.setImageResource(R.drawable.ic_great_inactive)
-
-
-    }
-
-    private fun setGoodRateStatus() {
-        rating = RateStatus.GOOD
-        ratingChangeListener?.onRateChanged(rating)
-
-        ivGood.setImageResource(R.drawable.ic_good)
-        if (showText) {
-            tvGood.visibility = View.VISIBLE
-            tvAwful.visibility = View.INVISIBLE
-            tvBad.visibility = View.INVISIBLE
-            tvOkay.visibility = View.INVISIBLE
-            tvGreat.visibility = View.INVISIBLE
-        } else {
-            hideAllTitles()
-        }
-
-
-        ivAwful.setImageResource(R.drawable.ic_awful_inactive)
-        ivBad.setImageResource(R.drawable.ic_bad_inactive)
-        ivOkay.setImageResource(R.drawable.ic_okay_inactive)
-        ivGreat.setImageResource(R.drawable.ic_great_inactive)
-
-
-    }
-
-    private fun setGreatRateStatus() {
-        rating = RateStatus.GREAT
-        ratingChangeListener?.onRateChanged(rating)
-
-        ivGreat.setImageResource(R.drawable.ic_great)
-        if (showText) {
-            tvGreat.visibility = View.VISIBLE
-
-            tvAwful.visibility = View.INVISIBLE
-            tvBad.visibility = View.INVISIBLE
-            tvOkay.visibility = View.INVISIBLE
-            tvGood.visibility = View.INVISIBLE
-        } else {
-            hideAllTitles()
-        }
-
-
-        ivAwful.setImageResource(R.drawable.ic_awful_inactive)
-        ivBad.setImageResource(R.drawable.ic_bad_inactive)
-        ivOkay.setImageResource(R.drawable.ic_okay_inactive)
-        ivGood.setImageResource(R.drawable.ic_good_inactive)
-
-
+    private fun getRatingImageResource (rateStatus: RateStatus, active: Boolean = true) = when (rateStatus) {
+        RateStatus.AWFUL -> if(active) R.drawable.ic_awful else R.drawable.ic_awful_inactive
+        RateStatus.BAD -> if(active) R.drawable.ic_bad else R.drawable.ic_bad_inactive
+        RateStatus.OKAY -> if(active) R.drawable.ic_okay else R.drawable.ic_okay_inactive
+        RateStatus.GOOD -> if(active) R.drawable.ic_good else R.drawable.ic_good_inactive
+        RateStatus.GREAT -> if(active) R.drawable.ic_great else R.drawable.ic_great_inactive
+        RateStatus.EMPTY -> null
     }
 
     fun setTypeFace(@FontRes font: Int) {
@@ -341,12 +250,13 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         tvGreat.setTextColor(color)
     }
 
-    private fun hideAllTitles() {
-        tvAwful.visibility = View.GONE
-        tvBad.visibility = View.GONE
-        tvOkay.visibility = View.GONE
-        tvGood.visibility = View.GONE
-        tvGreat.visibility = View.GONE
+    private fun hideAllTitles(hide: Boolean = true) {
+        val titleVisibility = if(hide) View.GONE else View.VISIBLE
+        tvAwful.visibility = titleVisibility
+        tvBad.visibility = titleVisibility
+        tvOkay.visibility = titleVisibility
+        tvGood.visibility = titleVisibility
+        tvGreat.visibility = titleVisibility
     }
 
     private fun scaleEmoji(targetView: View, disableView: View) {
