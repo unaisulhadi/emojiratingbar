@@ -14,11 +14,11 @@
 Add the JitPack repository to your ```build.gradle``` (Project) file
 ```bash
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
+}
 ```
 
 Add this line to your ```build.gradle``` (module)
