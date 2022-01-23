@@ -23,7 +23,7 @@ allprojects {
 
 Add this line to your ```build.gradle``` (module)
 ```bash
-implementation 'com.github.unaisulhadi:emojiratingbar:1.0.2'
+implementation 'com.github.unaisulhadi:emojiratingbar:1.0.3'
 ```
 
 ## ⌨️ Usage
@@ -37,28 +37,31 @@ implementation 'com.github.unaisulhadi:emojiratingbar:1.0.2'
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 app:showText="true"
+                app:showAllText="true"
                 app:titleColor="#844848"
                 app:defaultValue="AWFUL"
                 android:fontFamily="@font/playfair_display_semibold" />
 ```
 
-- 5 EmojiRatingBar Rate Values
+- 6 EmojiRatingBar Rate Values
 ```kotlin
- 0. RateStatus.AWFUL
- 1. RateStatus.BAD
- 2. RateStatus.OKAY
- 3. RateStatus.GOOD
- 4. RateStatus.GREAT
+ 0. RateStatus.EMPTY
+ 1. RateStatus.AWFUL
+ 2. RateStatus.BAD
+ 3. RateStatus.OKAY
+ 4. RateStatus.GOOD
+ 5. RateStatus.GREAT
 ```
 
 ### Parameters
 
-| Explanation               | Parameter Name          | Type       | Default Value            |
-| ------------------------- | ----------------------- | ---------- | --------------           |
-| Set Title Color           | **titleColor**          | color      | Same as the Emoji Color  |
-| Set Show Title status     | **showText**            | boolean    | true                     |
-| Set Default Rate          | **defaultValue**        | enum       | OKAY                     |
-| Set FontFamily            | **android:fontFamily**  | font       | Android Default          | 
+| Explanation                     | Parameter Name          | Type       | Default Value            |
+| ------------------------------- | ----------------------- | ---------- | --------------           |
+| Set Title Color                 | **titleColor**          | color      | Same as the Emoji Color  |
+| Show Only Selected Emoji Title  | **showText**            | boolean    | true                     |
+| Show All Emoji Titles           | **showAllText**         | boolean    | false                    |
+| Set Default Rate                | **defaultValue**        | enum       | EMPTY                    |
+| Set FontFamily                  | **android:fontFamily**  | font       | Android Default          | 
 
 ### Use Programmatically
 
@@ -67,24 +70,44 @@ implementation 'com.github.unaisulhadi:emojiratingbar:1.0.2'
 | Set Title Color             | setTitleColor(color)        | color reference      |                |
 | Set Show Title status       | setShowText(true)           | boolean              |                |
 | Get Show Title Status       | getShowText()               |                      | boolean        |
+| Set Show All Title Status   | setShowAllText()            | boolean              |	            |
+| Get Show All Title Status   | getShowAllText()            |               	   | boolean        |
 | Set Current Rate            | setCurrentRateStatus(rate)  | enum                 |                |
 | Get Current Rate            | getCurrentRateStatus()      |                      | rate           |
+| Set Awful Emoji Title       | setAwfulEmojiTitle()        | string               |                |
+| Set Bad Emoji Title         | setBadEmojiTitle()          | string               |                |
+| Set Okay Emoji Title        | setOkayEmojiTitle()         | string               |                |
+| Set Good Emoji Title        | setGoodEmojiTitle()         | string               |                |
+| Set Great Emoji Title       | setGreatEmojiTitle()        | string               |                |
 | Set Title Font (from res)   | setTypeFace(font)           | font reference       |                |
 | Set Title Font (from Asset) | setTypeFaceFromAssets(font) | path to asset        |                |
+
 
 
 ### Refer code below
 
 - Get current Rate Status of EmojiRatingBar.
 ```kotlin
-emojiRatingBar.getCurrentRateStatus().toString()
+emojiRatingBar.getCurrentRateStatus()
 ```
 
 - Set Rate Status programmatically.
-```
+```kotlin
 emojiRatingBar.setCurrentRateStatus(RateStatus.GOOD) //SET
-
 ```
+
+- Clear selected Emoji by setting EMPTY
+```kotlin
+emojiRatingBar.setCurrentRateStatus(RateStatus.EMPTY)
+```
+
+- Handle no emoji rating is selected
+```kotlin
+if(emojiRatingBar.getCurrentRateStatus() == RateStatus.EMPTY){
+   //Handle if no rating selected
+}
+```
+
 - Use OnRateChangeListener for observing Rate Changes
 ```kotlin
 emojiRatingBar.setRateChangeListener(object : EmojiRatingBar.OnRateChangeListener {
@@ -115,13 +138,16 @@ emojiRatingBar.setRateChangeListener(object : EmojiRatingBar.OnRateChangeListene
                     RateStatus.GREAT -> {
                         //Do your code
                     }
+		    RateStatus.EMPTY -> {
+                        //Do your code
+                    }
 
                 }
             }
 })
  ```
  
- - You can use your own emoji titles
+ - You can use your own Emoji titles
  ```kotlin
  emojiRatingBar.setAwfulEmojiTitle("Awful!")
  emojiRatingBar.setBadEmojiTitle("Bad!")
