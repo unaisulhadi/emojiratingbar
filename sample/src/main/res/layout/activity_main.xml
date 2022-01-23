@@ -38,7 +38,7 @@
                 android:layout_gravity="center"
                 app:showText="true"
                 app:titleColor="#844848"
-                app:defaultValue="AWFUL"
+                app:defaultValue="EMPTY"
                 android:fontFamily="@font/playfair_display_semibold"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
@@ -70,6 +70,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="ENABLE EMOJI TITLE"/>
+
+    <Button
+        android:id="@+id/btn_show_all_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="SHOW ALL EMOJI TITLE"/>
 
     <Button
         android:id="@+id/btn_set_font_from_asset"
