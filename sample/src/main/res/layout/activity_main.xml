@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 app:showText="true"
+                app:showAllText="true"
                 app:titleColor="#844848"
                 app:defaultValue="EMPTY"
                 android:fontFamily="@font/playfair_display_semibold"
@@ -45,14 +46,33 @@
                 android:layout_marginHorizontal="24dp"/>
 
 
-            <Button
-                android:id="@+id/btn_get_rating"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Submit"
-                android:layout_marginEnd="12dp"
-                android:layout_marginBottom="12dp"
-                android:layout_gravity="end"/>
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_get_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Submit"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_gravity="end"/>
+
+                <Button
+                    android:id="@+id/btn_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="CLEAR RATING" />
+
+
+            </RelativeLayout>
+
 
 
 

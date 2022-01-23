@@ -188,7 +188,7 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         return showAllText
     }
 
-    private fun setCurrentRateStatus(rateStatus: RateStatus){
+    fun setCurrentRateStatus(rateStatus: RateStatus){
         rating = rateStatus
         ratingChangeListener?.onRateChanged(rating)
 
@@ -257,6 +257,26 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         tvOkay.visibility = titleVisibility
         tvGood.visibility = titleVisibility
         tvGreat.visibility = titleVisibility
+    }
+
+    fun setAwfulEmojiTitle(title:String){
+        tvAwful.text = title
+    }
+
+    fun setBadEmojiTitle(title:String){
+        tvBad.text = title
+    }
+
+    fun setOkayEmojiTitle(title:String){
+        tvOkay.text = title
+    }
+
+    fun setGoodEmojiTitle(title:String){
+        tvGood.text = title
+    }
+
+    fun setGreatEmojiTitle(title:String){
+        tvGreat.text = title
     }
 
     private fun scaleEmoji(targetView: View, disableView: View) {

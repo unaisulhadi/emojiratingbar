@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnSetFontFromAssets: Button
     private lateinit var btnChangeTitleColor: Button
     private lateinit var btnShowAllTitle: Button
+    private lateinit var btnClearRating: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,10 +34,15 @@ class MainActivity : AppCompatActivity() {
         btnSetFontFromResource = findViewById(R.id.btn_set_font_from_res)
         btnSetFontFromAssets = findViewById(R.id.btn_set_font_from_asset)
         btnChangeTitleColor = findViewById(R.id.btn_change_title_color)
+        btnClearRating = findViewById(R.id.btn_clear)
 
         btnGetCurrentRate.setOnClickListener {
             Toast.makeText(this, "${emojiRatingBar.getCurrentRateStatus()}", Toast.LENGTH_SHORT)
                 .show()
+        }
+
+        btnClearRating.setOnClickListener {
+            emojiRatingBar.setCurrentRateStatus(RateStatus.EMPTY)
         }
 
         btnEnableTitle.setOnClickListener {
@@ -59,13 +65,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        /*
+        //Set custom emoji titles programmatically.
         emojiRatingBar.setAwfulEmojiTitle("Awful!")
         emojiRatingBar.setBadEmojiTitle("Bad!")
         emojiRatingBar.setOkayEmojiTitle("Okay!")
         emojiRatingBar.setGoodEmojiTitle("Good!")
         emojiRatingBar.setGreatEmojiTitle("Great!")
-        */
 
         emojiRatingBar.setRateChangeListener(object : EmojiRatingBar.OnRateChangeListener {
             override fun onRateChanged(rateStatus: RateStatus) {
@@ -86,7 +91,9 @@ class MainActivity : AppCompatActivity() {
                     RateStatus.GREAT -> {
                         //Do your code
                     }
-
+                    RateStatus.EMPTY -> {
+                        //Do your code
+                    }
                 }
             }
         })
@@ -108,7 +115,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun getRandomColor(): Int {
+    private fun getRandomColor(): Int {
         val colors = listOf(
             R.color.black,
             R.color.purple_200,
