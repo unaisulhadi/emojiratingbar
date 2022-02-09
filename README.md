@@ -23,7 +23,7 @@ allprojects {
 
 Add this line to your ```build.gradle``` (module)
 ```bash
-implementation 'com.github.unaisulhadi:emojiratingbar:1.0.3'
+implementation 'com.github.unaisulhadi:emojiratingbar:1.0.4'
 ```
 
 ## ⌨️ Usage
