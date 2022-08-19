@@ -75,6 +75,14 @@
 
 
 
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/readonly_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="READ ONLY"
+                android:layout_gravity="center"
+                android:checked="false"/>
+
 
         </LinearLayout>
 

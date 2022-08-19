@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import com.hadi.emojiratingbar.EmojiRatingBar
 import com.hadi.emojiratingbar.RateStatus
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnChangeTitleColor: Button
     private lateinit var btnShowAllTitle: Button
     private lateinit var btnClearRating: Button
+    private lateinit var readOnlySwitch : SwitchCompat
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +37,11 @@ class MainActivity : AppCompatActivity() {
         btnSetFontFromAssets = findViewById(R.id.btn_set_font_from_asset)
         btnChangeTitleColor = findViewById(R.id.btn_change_title_color)
         btnClearRating = findViewById(R.id.btn_clear)
+        readOnlySwitch = findViewById(R.id.readonly_switch)
+
+        readOnlySwitch.setOnCheckedChangeListener { compoundButton, isChecked ->
+                emojiRatingBar.setReadOnly(isChecked)
+        }
 
         btnGetCurrentRate.setOnClickListener {
             Toast.makeText(this, "${emojiRatingBar.getCurrentRateStatus()}", Toast.LENGTH_SHORT)
