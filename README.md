@@ -109,7 +109,7 @@ if(emojiRatingBar.getCurrentRateStatus() == RateStatus.EMPTY){
 ```
 - Make rating bar read-only (Disable clicks)
 ```kotlin
-emojiRatingBar.setReadOnly(false)
+emojiRatingBar.setReadOnly(true)
 ```
 
 
