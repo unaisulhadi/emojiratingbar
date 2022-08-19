@@ -5,13 +5,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.annotation.ColorRes
 import androidx.annotation.FontRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -48,9 +46,10 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
 
 
     private var showText: Boolean = true
-    private var showAllText: Boolean = false;
+    private var showAllText: Boolean = false
     private var color: Int  = 0
     private var fontFamilyId = 0
+    private var readOnly = false
 
     private lateinit var smileyList: List<Smiley>
 
@@ -71,6 +70,7 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
                 showAllText = getBoolean(R.styleable.EmojiRatingBar_showAllText, false)
                 rating = RateStatus.values()[getInt(R.styleable.EmojiRatingBar_defaultValue,0)]
                 fontFamilyId = getResourceId(R.styleable.EmojiRatingBar_android_fontFamily,0)
+                readOnly = false
             } finally {
                 recycle()
             }
@@ -94,6 +94,7 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         else if (!showText) {
             hideAllTitles(true)
         }
+        setReadOnly(false)
     }
 
 
@@ -188,7 +189,12 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         return showAllText
     }
 
+    fun setReadOnly(readOnly: Boolean) {
+        this.readOnly = readOnly
+    }
+
     fun setCurrentRateStatus(rateStatus: RateStatus){
+        if (this.readOnly) return
         rating = rateStatus
         ratingChangeListener?.onRateChanged(rating)
 
