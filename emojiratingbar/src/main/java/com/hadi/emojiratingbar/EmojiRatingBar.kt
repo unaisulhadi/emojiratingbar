@@ -47,12 +47,11 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
 
     private var showText: Boolean = true
     private var showAllText: Boolean = false
-    private var color: Int  = 0
+    private var color: Int = 0
     private var fontFamilyId = 0
     private var readOnly = false
 
     private lateinit var smileyList: List<Smiley>
-
 
 
     init {
@@ -68,8 +67,8 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
                 showText = getBoolean(R.styleable.EmojiRatingBar_showText, true)
                 color = getColor(R.styleable.EmojiRatingBar_titleColor, 0)
                 showAllText = getBoolean(R.styleable.EmojiRatingBar_showAllText, false)
-                rating = RateStatus.values()[getInt(R.styleable.EmojiRatingBar_defaultValue,0)]
-                fontFamilyId = getResourceId(R.styleable.EmojiRatingBar_android_fontFamily,0)
+                rating = RateStatus.values()[getInt(R.styleable.EmojiRatingBar_defaultValue, 0)]
+                fontFamilyId = getResourceId(R.styleable.EmojiRatingBar_android_fontFamily, 0)
                 readOnly = false
             } finally {
                 recycle()
@@ -81,17 +80,16 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
     private fun initType() {
         binding()
         handleRatingClick()
-        if(color > 0){
+        if (color > 0) {
             setInitialColor(color)
         }
-        if(fontFamilyId > 0){
+        if (fontFamilyId > 0) {
             setTypeFace(fontFamilyId)
         }
         setCurrentRateStatus(rating)
-        if(showAllText){
+        if (showAllText) {
             hideAllTitles(false)
-        }
-        else if (!showText) {
+        } else if (!showText) {
             hideAllTitles(true)
         }
         setReadOnly(false)
@@ -167,16 +165,17 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
 
     fun setShowText(showText: Boolean) {
         this.showText = showText
-        for (smiley in smileyList){
-            if(smiley.status == rating) smiley.text.visibility = if(showText) View.VISIBLE else View.INVISIBLE
+        for (smiley in smileyList) {
+            if (smiley.status == rating) smiley.text.visibility =
+                if (showText) View.VISIBLE else View.INVISIBLE
             else smiley.text.visibility = View.INVISIBLE
         }
     }
 
-    fun setShowAllText (showAllText: Boolean){
+    fun setShowAllText(showAllText: Boolean) {
         this.showAllText = showAllText
-        val visible = if(showAllText) View.VISIBLE else View.INVISIBLE
-        for (smiley in smileyList){
+        val visible = if (showAllText) View.VISIBLE else View.INVISIBLE
+        for (smiley in smileyList) {
             smiley.text.visibility = visible
         }
     }
@@ -193,36 +192,38 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         this.readOnly = readOnly
     }
 
-    fun setCurrentRateStatus(rateStatus: RateStatus){
+    fun setCurrentRateStatus(rateStatus: RateStatus) {
         if (this.readOnly) return
         rating = rateStatus
         ratingChangeListener?.onRateChanged(rating)
 
-        for (smiley in smileyList){
+        for (smiley in smileyList) {
             smiley.text.visibility = View.INVISIBLE
-            if(smiley.status == rateStatus) {
-                getRatingImageResource(smiley.status, true)?.let { smiley.image.setImageResource(it) }
-                if(showText) smiley.text.visibility = View.VISIBLE
-            }
-            else {
-                getRatingImageResource(smiley.status, false)?.let { smiley.image.setImageResource(it) }
+            if (smiley.status == rateStatus) {
+                getRatingImageResource(smiley.status,
+                    true)?.let { smiley.image.setImageResource(it) }
+                if (showText) smiley.text.visibility = View.VISIBLE
+            } else {
+                getRatingImageResource(smiley.status,
+                    false)?.let { smiley.image.setImageResource(it) }
             }
 
-            if(showAllText){
+            if (showAllText) {
                 smiley.text.visibility = View.VISIBLE
             }
         }
     }
 
 
-    private fun getRatingImageResource (rateStatus: RateStatus, active: Boolean = true) = when (rateStatus) {
-        RateStatus.AWFUL -> if(active) R.drawable.ic_awful else R.drawable.ic_awful_inactive
-        RateStatus.BAD -> if(active) R.drawable.ic_bad else R.drawable.ic_bad_inactive
-        RateStatus.OKAY -> if(active) R.drawable.ic_okay else R.drawable.ic_okay_inactive
-        RateStatus.GOOD -> if(active) R.drawable.ic_good else R.drawable.ic_good_inactive
-        RateStatus.GREAT -> if(active) R.drawable.ic_great else R.drawable.ic_great_inactive
-        RateStatus.EMPTY -> null
-    }
+    private fun getRatingImageResource(rateStatus: RateStatus, active: Boolean = true) =
+        when (rateStatus) {
+            RateStatus.AWFUL -> if (active) R.drawable.ic_awful else R.drawable.ic_awful_inactive
+            RateStatus.BAD -> if (active) R.drawable.ic_bad else R.drawable.ic_bad_inactive
+            RateStatus.OKAY -> if (active) R.drawable.ic_okay else R.drawable.ic_okay_inactive
+            RateStatus.GOOD -> if (active) R.drawable.ic_good else R.drawable.ic_good_inactive
+            RateStatus.GREAT -> if (active) R.drawable.ic_great else R.drawable.ic_great_inactive
+            RateStatus.EMPTY -> null
+        }
 
     fun setTypeFace(@FontRes font: Int) {
         tvAwful.typeface = ResourcesCompat.getFont(context, font)
@@ -241,11 +242,11 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
     }
 
     fun setTitleColor(color: Int) {
-        tvAwful.setTextColor(ContextCompat.getColor(context,color))
-        tvBad.setTextColor(ContextCompat.getColor(context,color))
-        tvOkay.setTextColor(ContextCompat.getColor(context,color))
-        tvGood.setTextColor(ContextCompat.getColor(context,color))
-        tvGreat.setTextColor(ContextCompat.getColor(context,color))
+        tvAwful.setTextColor(ContextCompat.getColor(context, color))
+        tvBad.setTextColor(ContextCompat.getColor(context, color))
+        tvOkay.setTextColor(ContextCompat.getColor(context, color))
+        tvGood.setTextColor(ContextCompat.getColor(context, color))
+        tvGreat.setTextColor(ContextCompat.getColor(context, color))
     }
 
     private fun setInitialColor(color: Int) {
@@ -257,7 +258,7 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
     }
 
     private fun hideAllTitles(hide: Boolean = true) {
-        val titleVisibility = if(hide) View.GONE else View.VISIBLE
+        val titleVisibility = if (hide) View.GONE else View.VISIBLE
         tvAwful.visibility = titleVisibility
         tvBad.visibility = titleVisibility
         tvOkay.visibility = titleVisibility
@@ -265,27 +266,28 @@ class EmojiRatingBar(context: Context, attributeSet: AttributeSet) :
         tvGreat.visibility = titleVisibility
     }
 
-    fun setAwfulEmojiTitle(title:String){
+    fun setAwfulEmojiTitle(title: String) {
         tvAwful.text = title
     }
 
-    fun setBadEmojiTitle(title:String){
+    fun setBadEmojiTitle(title: String) {
         tvBad.text = title
     }
 
-    fun setOkayEmojiTitle(title:String){
+    fun setOkayEmojiTitle(title: String) {
         tvOkay.text = title
     }
 
-    fun setGoodEmojiTitle(title:String){
+    fun setGoodEmojiTitle(title: String) {
         tvGood.text = title
     }
 
-    fun setGreatEmojiTitle(title:String){
+    fun setGreatEmojiTitle(title: String) {
         tvGreat.text = title
     }
 
     private fun scaleEmoji(targetView: View, disableView: View) {
+        if (this.readOnly) return
         val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.2f)
         val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.2f)
         val animator = ObjectAnimator.ofPropertyValuesHolder(targetView, scaleX, scaleY)
